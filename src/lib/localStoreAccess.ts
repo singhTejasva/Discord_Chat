@@ -35,4 +35,21 @@ const getFromLocalStorage = (key: string): string | undefined | null => {
   }
 };
 
-export { getFromLocalStorage, setInLocalStorage };
+const removeFromLocalStorage = (key: string): void => {
+  if (!localStorage) {
+    toast.error("Soemthing went wrong ... ", {
+      position: "bottom-right",
+      autoClose: 5000,
+    });
+  }
+  try {
+    localStorage.removeItem(key);
+  } catch (err: any) {
+    toast.error("Soemthing went wrong  n local storage... ", {
+      position: "bottom-right",
+      autoClose: 5000,
+    });
+  }
+};
+
+export { getFromLocalStorage, setInLocalStorage, removeFromLocalStorage };
