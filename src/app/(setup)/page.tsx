@@ -1,21 +1,21 @@
-"server client";
+"use client";
 
-import { initialProfile } from "@/lib/initial-profile";
-import { UserButton } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+import { getFromLocalStorage } from "@/lib/localStoreAccess";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-const SetupPage = async () => {
-  const profile = await initialProfile();
-  console.log(profile, "ayush@123------>>>");
-  if (!profile) {
-    redirect("/sign-in");
-  }
-  return (
-    <div>
-      Create a Server
-      <UserButton afterSignOutUrl="/" />
-    </div>
-  );
+const SetupPage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    // checking is user loggedin or not ....
+    const isLoggedIn = getFromLocalStorage("ACCESS_TOKEN");
+    if (!isLoggedIn) {
+      router.push("/login");
+    }
+  }, []);
+
+  return <div>Create a Server ayush....</div>;
 };
 
 export default SetupPage;
